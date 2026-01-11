@@ -1,0 +1,23 @@
+﻿@page
+@model HCAMiniEHR.Pages.Patients.EditModel
+
+<h2>Edit Patient</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Patient.PatientId" />
+
+    <div>
+        <label>Name</label>
+        <input asp-for="Patient.FullName" />
+    </div>
+    <div>
+        <label>DOB</label>
+        <input asp-for="Patient.DOB" type="date" />
+    </div>
+    <div>
+        <label>Gender</label>
+        <input asp-for="Patient.Gender" />
+    </div>
+
+    <button type="submit">Update</button>
+</form>

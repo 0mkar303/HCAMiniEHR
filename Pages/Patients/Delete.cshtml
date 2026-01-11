@@ -1,0 +1,12 @@
+﻿@page
+@model HCAMiniEHR.Pages.Patients.DeleteModel
+
+<h2>Delete Patient</h2>
+
+<p>Are you sure you want to delete <b>@Model.Patient.FullName</b>?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="Patient.PatientId" />
+    <button type="submit">Yes, Delete</button>
+    <a asp-page="Index">Cancel</a>
+</form>

@@ -1,0 +1,19 @@
+﻿@page
+@model HCAMiniEHR.Pages.LabOrders.CreateModel
+
+<h2>Add Lab Order</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Appointment Id</label>
+        @* <input asp-for="LabOrder.AppointmentId" class="form-control" /> *@
+    </div>
+
+    <div class="mb-3">
+        <label>Test Name</label>
+        @* <input asp-for="LabOrder.TestName" class="form-control" /> *@
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-page="Index" class="btn btn-secondary">Back</a>
+</form>

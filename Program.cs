@@ -1,7 +1,28 @@
+using HCAMiniEHR.Data;
+using HCAMiniEHR.Repositories.Implementations;
+using HCAMiniEHR.Repositories.Interfaces;
+using HCAMiniEHR.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Configure Entity Framework and SQL Server
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register repositories and services
+
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<PatientService>();
+builder.Services.AddScoped<AppointmentService>();
+builder.Services.AddScoped<ReportService>();
+builder.Services.AddScoped<DoctorService>();
+
+
 
 var app = builder.Build();
 

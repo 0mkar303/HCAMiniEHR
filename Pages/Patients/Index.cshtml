@@ -1,0 +1,40 @@
+﻿@page
+@model HCAMiniEHR.Pages.Patients.IndexModel
+
+<h2>Patients</h2>
+
+<a asp-page="Create" class="btn btn-primary mb-2">Add Patient</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Gender</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Patients)
+        {
+            <tr>
+                <td>@p.FullName</td>
+                <td>@p.DOB.ToShortDateString()</td>
+                <td>@p.Gender</td>
+                <td>
+                    <a asp-page="/Appointments/Index"
+                       asp-route-patientId="@p.PatientId">
+                        Appointments
+                    </a> |
+                    <a asp-page="/Appointments/Create"
+                       asp-route-patientId="@p.PatientId">
+                        Add Appointment
+                    </a>
+                    |
+                    <a asp-page="Edit" asp-route-id="@p.PatientId">Edit</a> |
+                    <a asp-page="Delete" asp-route-id="@p.PatientId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

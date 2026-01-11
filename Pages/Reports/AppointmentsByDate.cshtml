@@ -1,0 +1,22 @@
+﻿@page
+@model HCAMiniEHR.Pages.Reports.AppointmentsByDateModel
+
+<h2>Appointments By Date</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Patient Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model.Appointments)
+        {
+            <tr>
+                <td>@a.AppointmentDate</td>
+                <td>@a.PatientId</td>
+            </tr>
+        }
+    </tbody>
+</table>

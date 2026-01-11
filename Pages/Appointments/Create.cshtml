@@ -1,0 +1,34 @@
+﻿@page
+@model HCAMiniEHR.Pages.Appointments.CreateModel
+
+<h2>Add Appointment</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="PatientId" />
+
+    <div>
+        <label>Date</label>
+        <input asp-for="AppointmentDate" type="date" />
+    </div>
+
+    <div>
+        <label>Status</label>
+        <input asp-for="Status" />
+
+        <input type="hidden" asp-for="PatientId" />
+
+    </div>
+
+    <div>
+        <label>Doctor</label>
+        <select asp-for="DoctorId">
+            <option value="">-- Select Doctor --</option>
+            @foreach (var d in Model.Doctors)
+            {
+                <option value="@d.DoctorId">@d.FullName (@d.Specialty)</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
