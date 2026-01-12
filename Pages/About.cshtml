@@ -1,0 +1,144 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About This Project";
+}
+
+<div class="container mt-4">
+
+    <h1 class="mb-3">HCAMiniEHR – Mini Electronic Health Record System</h1>
+
+    <p class="text-muted">
+        This project is developed as part of an academic capstone assignment to demonstrate
+        real-world application of ASP.NET Core, Entity Framework Core, LINQ, SQL Server,
+        and Git-based collaboration.
+    </p>
+
+    <hr />
+
+    <h4>📌 Project Overview</h4>
+    <p>
+        HCAMiniEHR is a simplified Electronic Health Record (EHR) system designed to manage
+        core healthcare workflows such as patient registration, appointment scheduling,
+        and laboratory order management. The application follows real hospital business
+        rules and clean architectural practices.
+    </p>
+
+    <hr />
+
+    <h4>🛠 Technology Stack</h4>
+    <ul>
+        <li><b>Framework:</b> ASP.NET Core Razor Pages (.NET 8)</li>
+        <li><b>ORM:</b> Entity Framework Core</li>
+        <li><b>Database:</b> SQL Server</li>
+        <li><b>Querying:</b> LINQ</li>
+        <li><b>Architecture:</b> Repository + Service Pattern</li>
+        <li><b>UI:</b> Bootstrap (Responsive Design)</li>
+        <li><b>Version Control:</b> Git & GitHub</li>
+    </ul>
+
+    <hr />
+
+    <h4>🏥 Core Functional Modules</h4>
+
+    <h6>1️⃣ Patient Management</h6>
+    <ul>
+        <li>Create, View, Edit, and Delete patient records</li>
+        <li>Validation for DOB, mobile number, and required fields</li>
+        <li>Patient lifecycle management</li>
+    </ul>
+
+    <h6>2️⃣ Appointment Management</h6>
+    <ul>
+        <li>Schedule appointments for patients</li>
+        <li>Assign doctors to appointments</li>
+        <li>Business rule: Doctor availability based on daily appointment limit</li>
+        <li>Appointment lifecycle: Scheduled → Completed / Cancelled</li>
+        <li>Stored procedures used for appointment creation and status updates</li>
+    </ul>
+
+    <h6>3️⃣ Lab Order Management</h6>
+    <ul>
+        <li>Create lab orders only after appointment completion</li>
+        <li>Track lab order status (Pending → Completed)</li>
+        <li>Stored procedures used for lab order creation and updates</li>
+    </ul>
+
+    <hr />
+
+    <h4>📊 Reporting & Analytics (LINQ)</h4>
+    <p>
+        The system includes analytical reports implemented using LINQ queries:
+    </p>
+    <ul>
+        <li>Pending Lab Orders Report</li>
+        <li>Patients Without Follow-Up Appointments</li>
+        <li>Doctor Productivity Report (appointments count per doctor)</li>
+    </ul>
+
+    <hr />
+
+    <h4>📈 Dashboard</h4>
+    <ul>
+        <li>Total Patients Count</li>
+        <li>Total Appointments</li>
+        <li>Today’s Appointments</li>
+        <li>Pending Lab Orders</li>
+    </ul>
+    <p>
+        The dashboard provides a quick operational overview of the healthcare system.
+    </p>
+
+    <hr />
+
+    <h4>🔐 Security & Validation</h4>
+    <ul>
+        <li>Model-level validation using Data Annotations and IValidatableObject</li>
+        <li>Business rule enforcement in service layer</li>
+        <li>Authentication support using ASP.NET Core Identity (optional enhancement)</li>
+    </ul>
+
+    <hr />
+
+    <h4>🧱 Architecture & Design Principles</h4>
+    <ul>
+        <li>Separation of concerns (UI, Service, Repository, Data)</li>
+        <li>DTOs used for reporting and dashboard data transfer</li>
+        <li>Stored Procedures used for critical database operations</li>
+        <li>Audit logging implemented using SQL triggers</li>
+    </ul>
+
+    <hr />
+
+    <h4>🔄 Git & Collaboration</h4>
+    <ul>
+        <li>Multiple branches used for feature development</li>
+        <li>Meaningful commits with clear messages</li>
+        <li>Pull Requests used for merging features into main branch</li>
+    </ul>
+
+    <p>
+        🔗 <b>GitHub Repository:</b><br />
+        <a href="https://github.com/0mkar303/HCAMiniEHR.git" target="_blank">
+            Git Repository Link
+        </a>
+    </p>
+
+    <hr />
+
+    <h4>🎯 Learning Outcomes</h4>
+    <ul>
+        <li>Hands-on experience with full-stack ASP.NET Core development</li>
+        <li>Practical understanding of healthcare business workflows</li>
+        <li>Strong understanding of LINQ, EF Core, and SQL integration</li>
+        <li>Real-world application of Git and collaborative development</li>
+    </ul>
+
+    <hr />
+
+    <p class="text-muted">
+        This project demonstrates the practical application of enterprise-level
+        software development concepts in a healthcare domain.
+    </p>
+
+</div>
