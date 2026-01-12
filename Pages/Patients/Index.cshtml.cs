@@ -7,11 +7,7 @@ namespace HCAMiniEHR.Pages.Patients
     public class IndexModel : PageModel
     {
         private readonly PatientService _service;
-
-        public IndexModel(PatientService service)
-        {
-            _service = service;
-        }
+        public IndexModel(PatientService service) => _service = service;
 
         public List<Patient> Patients { get; set; }
 

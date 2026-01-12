@@ -1,23 +1,88 @@
 ﻿@page
 @model HCAMiniEHR.Pages.Patients.EditModel
 
-<h2>Edit Patient</h2>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="card shadow">
+                <div class="card-header bg-warning">
+                    <h4 class="mb-0">Edit Patient</h4>
+                </div>
 
-<form method="post">
-    <input type="hidden" asp-for="Patient.PatientId" />
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="alert alert-danger"></div>
 
-    <div>
-        <label>Name</label>
-        <input asp-for="Patient.FullName" />
-    </div>
-    <div>
-        <label>DOB</label>
-        <input asp-for="Patient.DOB" type="date" />
-    </div>
-    <div>
-        <label>Gender</label>
-        <input asp-for="Patient.Gender" />
-    </div>
+                    <form method="post">
+                        <input type="hidden" asp-for="Patient.PatientId" />
 
-    <button type="submit">Update</button>
-</form>
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input asp-for="Patient.FullName" class="form-control" />
+                                <span asp-validation-for="Patient.FullName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth</label>
+                                <input asp-for="Patient.DOB" type="date" class="form-control" />
+                                <span asp-validation-for="Patient.DOB" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Gender</label>
+                                <select asp-for="Patient.Gender" class="form-select">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                                <span asp-validation-for="Patient.Gender" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Mobile Number</label>
+                                <input asp-for="Patient.MobileNumber" class="form-control" />
+                                <span asp-validation-for="Patient.MobileNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input asp-for="Patient.Email" class="form-control" />
+                                <span asp-validation-for="Patient.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Blood Group</label>
+                                <select asp-for="Patient.BloodGroup" class="form-select">
+                                    <option value="">-- Select Blood Group --</option>
+                                    <option>A+</option>
+                                    <option>A-</option>
+                                    <option>B+</option>
+                                    <option>B-</option>
+                                    <option>AB+</option>
+                                    <option>AB-</option>
+                                    <option>O+</option>
+                                    <option>O-</option>
+                                </select>
+                                <span asp-validation-for="Patient.BloodGroup" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label class="form-label">Emergency Contact</label>
+                                <input asp-for="Patient.EmergencyContact" class="form-control" />
+                                <span asp-validation-for="Patient.EmergencyContact" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-4 d-flex justify-content-end gap-2">
+                            <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-warning">Update Patient</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

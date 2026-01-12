@@ -1,14 +1,19 @@
-﻿@* @page
+﻿@page
 @model HCAMiniEHR.Pages.LabOrders.IndexModel
 
-<h2>Lab Orders</h2>
+<h3>Lab Orders</h3>
+
+<a asp-page="Create"
+   asp-route-appointmentId="@Model.AppointmentId"
+   class="btn btn-primary mb-3">
+    + Add Lab Order
+</a>
 
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Test Name</th>
+            <th>Test</th>
             <th>Status</th>
-            <th>Appointment Id</th>
         </tr>
     </thead>
     <tbody>
@@ -16,10 +21,33 @@
         {
             <tr>
                 <td>@l.TestName</td>
-                <td>@l.Status</td>
-                <td>@l.AppointmentId</td>
+
+                <td>
+                    <span class="badge
+                    @(l.Status == "Pending" ? "bg-warning text-dark" : "bg-success")">
+                        @l.Status
+                    </span>
+                </td>
+
+                <td>
+                    @if (l.Status == "Pending")
+                    {
+                        <form method="post" class="d-inline">
+                            <input type="hidden" name="labOrderId" value="@l.LabOrderId" />
+                            <input type="hidden" name="appointmentId" value="@Model.AppointmentId" />
+                            <button asp-page-handler="Complete"
+                                    class="btn btn-sm btn-success">
+                                Complete
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No actions</span>
+                    }
+                </td>
             </tr>
         }
     </tbody>
+
 </table>
- *@

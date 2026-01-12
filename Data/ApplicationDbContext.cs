@@ -1,4 +1,5 @@
 ﻿using HCAMiniEHR.Models;
+using HCAMiniEHR.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCAMiniEHR.Data
@@ -18,6 +19,10 @@ namespace HCAMiniEHR.Data
         {
             modelBuilder.HasDefaultSchema("Healthcare");
 
+            // Configure entities and relationships
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<AppointmentListDto>().HasNoKey();
+
             modelBuilder.Entity<Patient>()
                 .HasMany(p => p.Appointments)
                 .WithOne(a => a.Patient)
@@ -29,6 +34,7 @@ namespace HCAMiniEHR.Data
                 .WithOne(l => l.Appointment)
                 .HasForeignKey(l => l.AppointmentId)
                 .OnDelete(DeleteBehavior.Cascade);
+          
         }
     }
 }

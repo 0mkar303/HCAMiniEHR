@@ -19,11 +19,19 @@ namespace HCAMiniEHR.Pages.Patients
 
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine("POST HIT");
-           
+            if (!ModelState.IsValid)
+                return Page();
 
-            await _service.AddAsync(Patient);
-            return RedirectToPage("Index");
+            try
+            {
+                await _service.CreateAsync(Patient);
+                return RedirectToPage("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return Page();
+            }
         }
     }
 }

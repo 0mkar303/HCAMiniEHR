@@ -1,27 +1,109 @@
 ﻿@page
 @model HCAMiniEHR.Pages.Appointments.IndexModel
 
-<h2>Appointments</h2>
+<div class="container mt-4">
 
-<a asp-page="Create"
-   asp-route-patientId="@Model.PatientId"
-   class="btn btn-primary mb-2">
-    Add Appointment
-</a>
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Appointments</h3>
+        <a asp-page="Create"
+           asp-route-patientId="@Model.PatientId"
+           class="btn btn-primary">
+            + Add Appointment
+        </a>
+    </div>
 
-<table class="table table-bordered">
-    <tr>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Doctor</th>
-    </tr>
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model.Appointments)
+            {
+                <tr>
+                    <td>@a.AppointmentDate.ToString("dd-MMM-yyyy")</td>
+                    <td>@a.DoctorName</td>
+                    <td>
+                        <span class="badge
+                    @(a.Status == "Scheduled" ? "bg-primary" :
+                                                a.Status == "Completed" ? "bg-success" :
+                                                "bg-danger")">
+                            @a.Status
+                        </span>
+                    </td>
+                    <td>
+                        @if (a.Status == "Scheduled")
+                        {
+                            <form method="post" class="d-inline">
+                                <input type="hidden" name="appointmentId" value="@a.AppointmentId" />
+                                <input type="hidden" name="patientId" value="@Model.PatientId" />
+                                <button asp-page-handler="Complete"
+                                        class="btn btn-sm btn-success">
+                                    Complete
+                                </button>
+                            </form>
 
-    @foreach (var a in Model.Appointments)
-    {
-        <tr>
-            <td>@a.AppointmentDate.ToShortDateString()</td>
-            <td>@a.Status</td>
-            <td>@a.Doctor?.FullName</td>
-        </tr>
-    }
-</table>
+                            <form method="post" class="d-inline">
+                                <input type="hidden" name="appointmentId" value="@a.AppointmentId" />
+                                <input type="hidden" name="patientId" value="@Model.PatientId" />
+                                <button asp-page-handler="Cancel"
+                                        class="btn btn-sm btn-danger">
+                                    Cancel
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No actions</span>
+                        }
+                    </td>
+                    <td>
+                        @if (a.Status == "Scheduled")
+                        {
+                            <form method="post" class="d-inline">
+                                <input type="hidden" name="appointmentId" value="@a.AppointmentId" />
+                                <input type="hidden" name="patientId" value="@Model.PatientId" />
+                                <button asp-page-handler="Complete"
+                                        class="btn btn-sm btn-success">
+                                    Complete
+                                </button>
+                            </form>
+
+                            <form method="post" class="d-inline">
+                                <input type="hidden" name="appointmentId" value="@a.AppointmentId" />
+                                <input type="hidden" name="patientId" value="@Model.PatientId" />
+                                <button asp-page-handler="Cancel"
+                                        class="btn btn-sm btn-danger">
+                                    Cancel
+                                </button>
+                            </form>
+                        }
+                        else if (a.Status == "Completed")
+                        {
+                            <a asp-page="/LabOrders/Index"
+                               asp-route-appointmentId="@a.AppointmentId"
+                               class="btn btn-sm btn-info text-white">
+                                Lab Orders
+                            </a>
+
+                            <a asp-page="/LabOrders/Create"
+                               asp-route-appointmentId="@a.AppointmentId"
+                               class="btn btn-sm btn-primary">
+                                + Add Lab Order
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No actions</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

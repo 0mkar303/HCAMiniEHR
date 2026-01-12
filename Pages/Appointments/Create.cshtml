@@ -1,34 +1,79 @@
 ﻿@page
 @model HCAMiniEHR.Pages.Appointments.CreateModel
 
-<h2>Add Appointment</h2>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12">
 
-<form method="post">
-    <input type="hidden" asp-for="PatientId" />
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Add Appointment</h4>
+                </div>
 
-    <div>
-        <label>Date</label>
-        <input asp-for="AppointmentDate" type="date" />
+                <div class="card-body">
+
+                    <!-- Validation Summary -->
+                    <div asp-validation-summary="All"
+                         class="alert alert-danger"
+                         role="alert"></div>
+
+                    <form method="post" novalidate>
+
+                        <!-- PatientId -->
+                        <input type="hidden"
+                               asp-for="Appointment.PatientId" />
+
+                        <!-- Appointment Date -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Appointment Date <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Appointment.AppointmentDate"
+                                   type="date"
+                                   class="form-control"
+                                   min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="Appointment.AppointmentDate"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Doctor -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Doctor <span class="text-danger">*</span>
+                            </label>
+                            <select asp-for="Appointment.DoctorId"
+                                    asp-items="Model.Doctors"
+                                    class="form-select">
+                                <option value="">-- Select Doctor --</option>
+                            </select>
+                            <span asp-validation-for="Appointment.DoctorId"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="alert alert-info py-2">
+                            Status will be set to
+                            <strong>Scheduled</strong> automatically.
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-end gap-2">
+                            <a asp-page="Index"
+                               asp-route-patientId="@Model.Appointment.PatientId"
+                               class="btn btn-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit"
+                                    class="btn btn-success">
+                                Save Appointment
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <div>
-        <label>Status</label>
-        <input asp-for="Status" />
-
-        <input type="hidden" asp-for="PatientId" />
-
-    </div>
-
-    <div>
-        <label>Doctor</label>
-        <select asp-for="DoctorId">
-            <option value="">-- Select Doctor --</option>
-            @foreach (var d in Model.Doctors)
-            {
-                <option value="@d.DoctorId">@d.FullName (@d.Specialty)</option>
-            }
-        </select>
-    </div>
-
-    <button type="submit">Save</button>
-</form>
+</div>

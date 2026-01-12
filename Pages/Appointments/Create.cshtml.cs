@@ -1,49 +1,59 @@
+using HCAMiniEHR.Data;
 using HCAMiniEHR.Models;
 using HCAMiniEHR.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HCAMiniEHR.Pages.Appointments
 {
     public class CreateModel : PageModel
     {
-        private readonly AppointmentService _appointmentService;
-        private readonly DoctorService _doctorService;
+        private readonly AppointmentService _service;
+        private readonly ApplicationDbContext _context;
 
         public CreateModel(
-            AppointmentService appointmentService,
-            DoctorService doctorService)
+            AppointmentService service,
+            ApplicationDbContext context)
         {
-            _appointmentService = appointmentService;
-            _doctorService = doctorService;
+            _service = service;
+            _context = context;
         }
 
-        [BindProperty] public int PatientId { get; set; }
-        [BindProperty] public int DoctorId { get; set; }
-        [BindProperty] public DateTime AppointmentDate { get; set; }
-        [BindProperty] public string Status { get; set; }
+        [BindProperty]
+        public Appointment Appointment { get; set; }
 
-        public List<Doctor> Doctors { get; set; }
+        public SelectList Doctors { get; set; }
 
-        public async Task OnGetAsync(int patientId)
+        public void OnGet(int patientId)
         {
-            PatientId = patientId;
-            Doctors = await _doctorService.GetAllAsync();
+            Appointment = new Appointment
+            {
+                PatientId = patientId
+            };
+
+            Doctors = new SelectList(
+                _context.Doctors.ToList(),
+                "DoctorId",
+                "FullName");
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine("PatientId = " + PatientId);
+            if (!ModelState.IsValid)
+            {
+                Doctors = new SelectList(
+                    _context.Doctors, "DoctorId", "FullName");
+                return Page();
+            }
 
-            await _appointmentService.CreateUsingSPAsync(
-                PatientId,
-                DoctorId,
-                AppointmentDate,
-                Status
-            );
+            await _service.AddAsync(Appointment);
 
-            return RedirectToPage("Index", new { patientId = PatientId });
+            return RedirectToPage(
+                "Index",
+                new { patientId = Appointment.PatientId });
         }
+
 
     }
 }

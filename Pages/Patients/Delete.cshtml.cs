@@ -20,6 +20,9 @@ namespace HCAMiniEHR.Pages.Patients
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Patient = await _service.GetByIdAsync(id);
+            if (Patient == null)
+                return RedirectToPage("Index");
+
             return Page();
         }
 

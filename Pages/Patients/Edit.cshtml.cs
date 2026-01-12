@@ -28,6 +28,9 @@ namespace HCAMiniEHR.Pages.Patients
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+                return Page();
+
             await _service.UpdateAsync(Patient);
             return RedirectToPage("Index");
         }

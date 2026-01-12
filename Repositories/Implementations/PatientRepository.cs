@@ -15,31 +15,46 @@ namespace HCAMiniEHR.Repositories.Implementations
         }
 
         public async Task<List<Patient>> GetAllAsync()
-            => await _context.Patients.ToListAsync();
+        {
+            return await _context.Patients
+                .Where(p => p.Status == "Active")
+                .ToListAsync();
+        }
 
         public async Task<Patient?> GetByIdAsync(int id)
-            => await _context.Patients.FindAsync(id);
-
-        public async Task AddAsync(Patient patient)
         {
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
+            return await _context.Patients.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Patient patient)
+        public async Task CreateUsingSPAsync(Patient p)
         {
-            _context.Patients.Update(patient);
-            await _context.SaveChangesAsync();
+            await _context.Database.ExecuteSqlRawAsync(
+                @"EXEC Healthcare.CreatePatient 
+                  @FullName={0}, @DOB={1}, @Gender={2},
+                  @MobileNumber={3}, @Email={4},
+                  @BloodGroup={5}, @EmergencyContact={6}",
+                p.FullName, p.DOB, p.Gender,
+                p.MobileNumber, p.Email,
+                p.BloodGroup, p.EmergencyContact);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task UpdateUsingSPAsync(Patient p)
         {
-            var patient = await _context.Patients.FindAsync(id);
-            if (patient != null)
-            {
-                _context.Patients.Remove(patient);
-                await _context.SaveChangesAsync();
-            }
+            await _context.Database.ExecuteSqlRawAsync(
+                @"EXEC Healthcare.UpdatePatient
+                  @PatientId={0}, @FullName={1}, @DOB={2},
+                  @Gender={3}, @MobileNumber={4}, @Email={5},
+                  @BloodGroup={6}, @EmergencyContact={7}",
+                p.PatientId, p.FullName, p.DOB,
+                p.Gender, p.MobileNumber, p.Email,
+                p.BloodGroup, p.EmergencyContact);
+        }
+
+        public async Task DeleteUsingSPAsync(int patientId)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                "EXEC Healthcare.DeletePatient @PatientId={0}",
+                patientId);
         }
     }
 }

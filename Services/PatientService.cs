@@ -18,13 +18,18 @@ namespace HCAMiniEHR.Services
         public Task<Patient?> GetByIdAsync(int id)
             => _repo.GetByIdAsync(id);
 
-        public Task AddAsync(Patient patient)
-            => _repo.AddAsync(patient);
+        public Task CreateAsync(Patient patient)
+        {
+            if (patient.DOB > DateTime.Today)
+                throw new Exception("DOB cannot be in future");
+
+            return _repo.CreateUsingSPAsync(patient);
+        }
 
         public Task UpdateAsync(Patient patient)
-            => _repo.UpdateAsync(patient);
+            => _repo.UpdateUsingSPAsync(patient);
 
         public Task DeleteAsync(int id)
-            => _repo.DeleteAsync(id);
+            => _repo.DeleteUsingSPAsync(id);
     }
 }

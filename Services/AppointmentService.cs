@@ -1,42 +1,40 @@
-﻿using HCAMiniEHR.Data;
-using HCAMiniEHR.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using HCAMiniEHR.Models;
+using HCAMiniEHR.Models.DTOs;
+using HCAMiniEHR.Repositories.Interfaces;
 
 namespace HCAMiniEHR.Services
 {
     public class AppointmentService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAppointmentRepository _repo;
 
-        public AppointmentService(ApplicationDbContext context)
+        public AppointmentService(IAppointmentRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        // ✅ List appointments for a patient (with doctor)
-        public async Task<List<Appointment>> GetByPatientAsync(int patientId)
+        public async Task AddAsync(Appointment appointment)
         {
-            return await _context.Appointments
-                .Include(a => a.Doctor)
-                .Where(a => a.PatientId == patientId)
-                .OrderByDescending(a => a.AppointmentDate)
-                .ToListAsync();
+            // Business rule
+            if (appointment.AppointmentDate.Date < DateTime.Today)
+                throw new Exception("Appointment date cannot be in the past");
+
+            await _repo.AddAsync(appointment);
         }
 
-        // ✅ Add appointment using Stored Procedure
-        public async Task CreateUsingSPAsync(
-            int patientId,
-            int doctorId,
-            DateTime date,
-            string status)
+        public Task<List<AppointmentListDto>> GetByPatientAsync(int patientId)
         {
-            await _context.Database.ExecuteSqlRawAsync(
-                "EXEC Healthcare.CreateAppointment @p0, @p1, @p2, @p3",
-                patientId,
-                doctorId,
-                date,
-                status
-            );
+            return _repo.GetByPatientAsync(patientId);
         }
+        public async Task CompleteAsync(int appointmentId)
+        {
+            await _repo.UpdateStatusAsync(appointmentId, "Completed");
+        }
+
+        public async Task CancelAsync(int appointmentId)
+        {
+            await _repo.UpdateStatusAsync(appointmentId, "Cancelled");
+        }
+
     }
 }

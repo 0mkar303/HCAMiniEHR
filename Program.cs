@@ -21,6 +21,12 @@ builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<ReportService>();
 builder.Services.AddScoped<DoctorService>();
+builder.Services.AddScoped<ILabOrderRepository, LabOrderRepository>();
+builder.Services.AddScoped<LabOrderService>();
+//Register AppointmentRepository
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<AppointmentService>();
+
 
 
 
