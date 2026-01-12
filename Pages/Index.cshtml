@@ -1,10 +1,91 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Healthcare Dashboard</h2>
+    <!-- Welcome & Guide Banner -->
+    <div class="container mt-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-body bg-light">
+
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h3 class="fw-bold text-primary">
+                            👋 Welcome to HCAMiniEHR
+                        </h3>
+
+                        <p class="text-muted mb-2">
+                            A simple and secure healthcare management system to manage
+                            patients, appointments, and lab orders efficiently.
+                        </p>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>✅ Register and manage patients</li>
+                            <li>✅ Schedule and complete appointments</li>
+                            <li>✅ Create and track lab orders</li>
+                            <li>✅ Monitor system activity using reports</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4 text-center mt-3 mt-md-0">
+                        <span class="badge bg-primary fs-6 px-3 py-2 mb-2 d-inline-block">
+                            Getting Started
+                        </span>
+
+                        <div class="small text-muted">
+                            Follow the workflow:
+                            <br />
+                            <b>Patient → Appointment → Lab Order</b>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h5 class="text-muted fw-semibold mb-3">
+            System Overview
+        </h5>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body">
+                    <h6>Total Patients</h6>
+                    <h2>@Model.Dashboard.TotalPatients</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-dark shadow">
+                <div class="card-body">
+                    <h6>Total Appointments</h6>
+                    <h2>@Model.Dashboard.TotalAppointments</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-success shadow">
+                <div class="card-body">
+                    <h6>Today's Appointments</h6>
+                    <h2>@Model.Dashboard.TodayAppointments</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-white bg-warning shadow">
+                <div class="card-body">
+                    <h6>Pending Lab Orders</h6>
+                    <h2>@Model.Dashboard.PendingLabOrders</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

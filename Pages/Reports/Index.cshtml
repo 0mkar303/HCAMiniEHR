@@ -1,0 +1,77 @@
+﻿@page
+@model HCAMiniEHR.Pages.Reports.IndexModel
+
+<h3 class="mb-3">Reports</h3>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#lab">
+            Pending Lab Orders
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#patients">
+            Patients Without Follow-Up
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#doctors">
+            Doctor Productivity
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content mt-3">
+
+    <!-- 1️⃣ Pending Lab Orders -->
+    <div class="tab-pane fade show active" id="lab">
+        <table class="table table-bordered">
+            <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Test</th>
+            </tr>
+            @foreach (var l in Model.PendingLabOrders)
+            {
+                <tr>
+                    <td>@l.PatientName</td>
+                    <td>@l.DoctorName</td>
+                    <td>@l.TestName</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <!-- 2️⃣ Patients Without Follow-Up -->
+    <div class="tab-pane fade" id="patients">
+        <table class="table table-bordered">
+            <tr>
+                <th>Patient Name</th>
+            </tr>
+            @foreach (var p in Model.PatientsWithoutFollowUp)
+            {
+                <tr>
+                    <td>@p.PatientName</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <!-- 3️⃣ Doctor Productivity -->
+    <div class="tab-pane fade" id="doctors">
+        <table class="table table-bordered">
+            <tr>
+                <th>Doctor</th>
+                <th>Total Appointments</th>
+            </tr>
+            @foreach (var d in Model.DoctorProductivity)
+            {
+                <tr>
+                    <td>@d.DoctorName</td>
+                    <td>@d.TotalAppointments</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
