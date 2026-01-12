@@ -1,10 +1,12 @@
 ﻿using HCAMiniEHR.Models;
 using HCAMiniEHR.Models.DTOs;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCAMiniEHR.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext
+        : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
@@ -17,10 +19,11 @@ namespace HCAMiniEHR.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // 🔥 VERY IMPORTANT: call base FIRST
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasDefaultSchema("Healthcare");
 
-            // Configure entities and relationships
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AppointmentListDto>().HasNoKey();
 
             modelBuilder.Entity<Patient>()
@@ -34,7 +37,6 @@ namespace HCAMiniEHR.Data
                 .WithOne(l => l.Appointment)
                 .HasForeignKey(l => l.AppointmentId)
                 .OnDelete(DeleteBehavior.Cascade);
-          
         }
     }
 }

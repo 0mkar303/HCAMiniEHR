@@ -34,7 +34,48 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
                         </li>
+
                     </ul>
+                    <ul class="navbar-nav ms-auto">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center me-3">
+                                <span class="navbar-text fw-semibold">
+                                    👤 @User.Identity.Name
+                                </span>
+                            </li>
+
+                            <li class="nav-item">
+                                <form method="post"
+                                      asp-page="/Account/Logout"
+                                      class="d-inline">
+                                    <button type="submit"
+                                            class="btn btn-outline-danger btn-sm">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-2">
+                                <a asp-page="/Account/Login"
+                                   class="btn btn-outline-primary btn-sm">
+                                    Login
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-page="/Account/Register"
+                                   class="btn btn-outline-success btn-sm">
+                                    Register
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
                 </div>
             </div>
         </nav>

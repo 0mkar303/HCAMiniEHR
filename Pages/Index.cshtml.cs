@@ -1,9 +1,11 @@
 using HCAMiniEHR.Models.DTOs;
 using HCAMiniEHR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HCAMiniEHR.Pages
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly DashboardService _service;

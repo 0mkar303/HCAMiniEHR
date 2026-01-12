@@ -1,12 +1,14 @@
 using HCAMiniEHR.Data;
 using HCAMiniEHR.Models;
 using HCAMiniEHR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HCAMiniEHR.Pages.Appointments
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly AppointmentService _service;

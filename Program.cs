@@ -1,7 +1,9 @@
 using HCAMiniEHR.Data;
+using HCAMiniEHR.Models;
 using HCAMiniEHR.Repositories.Implementations;
 using HCAMiniEHR.Repositories.Interfaces;
 using HCAMiniEHR.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 // Register repositories and services
 
+//Register the Authorized Pages
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/");
+    options.Conventions.AllowAnonymousToPage("/Account/Login");
+    options.Conventions.AllowAnonymousToPage("/Account/Register");
+});
+
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<AppointmentService>();
@@ -28,7 +38,10 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<DashboardService>();
 
-
+//Register Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 
 
@@ -46,6 +59,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
+
 
 app.UseAuthorization();
 

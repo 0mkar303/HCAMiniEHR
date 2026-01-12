@@ -1,10 +1,12 @@
 using HCAMiniEHR.Models;
 using HCAMiniEHR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HCAMiniEHR.Pages.Patients
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly PatientService _service;

@@ -1,0 +1,62 @@
+﻿@page
+@model HCAMiniEHR.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-10">
+
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">HCAMiniEHR Login</h4>
+                </div>
+
+                <div class="card-body">
+
+                    <div asp-validation-summary="All"
+                         class="alert alert-danger"></div>
+
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Input.Email"
+                                   class="form-control"
+                                   placeholder="Enter email" />
+                            <span asp-validation-for="Input.Email"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input asp-for="Input.Password"
+                                   type="password"
+                                   class="form-control"
+                                   placeholder="Enter password" />
+                            <span asp-validation-for="Input.Password"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Login
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="card-footer text-center">
+                    <small>
+                        Don’t have an account?
+                        <a asp-page="Register">Register</a>
+                    </small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

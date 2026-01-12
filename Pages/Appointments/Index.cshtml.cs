@@ -1,10 +1,12 @@
 using HCAMiniEHR.Models.DTOs;
 using HCAMiniEHR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HCAMiniEHR.Pages.Appointments
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly AppointmentService _service;

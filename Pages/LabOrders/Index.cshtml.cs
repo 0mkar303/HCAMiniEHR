@@ -1,10 +1,12 @@
 using HCAMiniEHR.Models;
 using HCAMiniEHR.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HCAMiniEHR.Pages.LabOrders
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly LabOrderService _service;
