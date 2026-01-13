@@ -21,7 +21,13 @@ namespace HCAMiniEHR.Services
             {
                 TotalPatients = await _context.Patients.CountAsync(),
 
-                TotalAppointments = await _context.Appointments.CountAsync(),
+                //TotalAppointments = await _context.Appointments.CountAsync(),
+
+                TotalAppointments = await _context.Appointments
+    .Where(a => a.Patient.Status == "Active")
+    .CountAsync(),
+
+
 
                 TodayAppointments = await _context.Appointments
                     .CountAsync(a => a.AppointmentDate.Date == today),
