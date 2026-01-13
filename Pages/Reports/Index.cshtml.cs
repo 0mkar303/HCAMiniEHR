@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HCAMiniEHR.Pages.Reports
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class IndexModel : PageModel
     {
         private readonly ReportService _service;

@@ -43,8 +43,14 @@ namespace HCAMiniEHR.Pages.Account
                 Input.Email,
                 Input.Password,
                 isPersistent: false,
-                lockoutOnFailure: false
+                lockoutOnFailure: true
             );
+            if (result.IsLockedOut)
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Your account is locked. Please try again after 30 seconds.");
+                return Page();
+            }
 
             if (result.Succeeded)
             {
