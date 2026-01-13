@@ -29,7 +29,23 @@ namespace HCAMiniEHR.Services
         public Task UpdateAsync(Patient patient)
             => _repo.UpdateUsingSPAsync(patient);
 
-        public Task DeleteAsync(int id)
-            => _repo.DeleteUsingSPAsync(id);
+        //public Task DeleteAsync(int id)
+        //    => _repo.DeleteUsingSPAsync(id);
+
+        public async Task DeleteAsync(int id)
+        {
+            bool hasPendingWork =
+                await _repo.HasPendingAppointmentsOrLabsAsync(id);
+
+
+            if (hasPendingWork)
+                throw new InvalidOperationException(
+                    "Cannot deactivate patient. Pending appointments or lab orders exist."
+                );
+
+            await _repo.DeleteUsingSPAsync(id);
+        }
+
+
     }
 }

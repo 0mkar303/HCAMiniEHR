@@ -10,5 +10,7 @@ namespace HCAMiniEHR.Repositories.Interfaces
         Task CreateUsingSPAsync(Patient patient);
         Task UpdateUsingSPAsync(Patient patient);
         Task DeleteUsingSPAsync(int patientId);
+        Task<bool> HasPendingAppointmentsOrLabsAsync(int patientId);
+
     }
 }

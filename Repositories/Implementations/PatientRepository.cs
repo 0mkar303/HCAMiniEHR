@@ -56,5 +56,15 @@ namespace HCAMiniEHR.Repositories.Implementations
                 "EXEC Healthcare.DeletePatient @PatientId={0}",
                 patientId);
         }
+        public async Task<bool> HasPendingAppointmentsOrLabsAsync(int patientId)
+        {
+            return await _context.Appointments
+                .Where(a => a.PatientId == patientId)
+                .AnyAsync(a =>
+                    a.Status != "Completed" ||
+                    a.LabOrders.Any(l => l.Status == "Pending")
+                );
+        }
+
     }
 }

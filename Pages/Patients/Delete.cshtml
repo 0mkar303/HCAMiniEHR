@@ -3,6 +3,16 @@
 
 <h2>Delete Patient</h2>
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red; font-weight:bold;">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
 <p>
     Are you sure you want to delete
     <strong>@Model.Patient.FullName</strong>?
