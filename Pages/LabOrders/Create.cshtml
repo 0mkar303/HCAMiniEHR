@@ -27,11 +27,32 @@
                                 Test Name <span class="text-danger">*</span>
                             </label>
 
-                            <select asp-for="LabOrder.TestName"
+                           @*  <select asp-for="LabOrder.TestName"
                                     asp-items="Model.TestList"
                                     class="form-select">
                                 <option value="">-- Select Test --</option>
-                            </select>
+                            </select> *@
+                            <div class="mb-3">
+                                @* <label class="form-label">
+                                    Test Name <span class="text-danger">*</span>
+                                </label> *@
+
+                                <input asp-for="LabOrder.TestName"
+                                       class="form-control"
+                                       list="testList"
+                                       placeholder="Select or type test name" />
+
+                                <datalist id="testList">
+                                    @foreach (var test in Model.TestList)
+                                    {
+                                        <option value="@test.Text"></option>
+                                    }
+                                </datalist>
+
+                                <span asp-validation-for="LabOrder.TestName"
+                                      class="text-danger"></span>
+                            </div>
+
 
                             <span asp-validation-for="LabOrder.TestName"
                                   class="text-danger"></span>
