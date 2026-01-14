@@ -21,21 +21,22 @@ namespace HCAMiniEHR.Models
 
         [Required(ErrorMessage = "Mobile number is required")]
         [RegularExpression(@"^[6-9]\d{9}$",
-            ErrorMessage = "Enter a valid 10-digit mobile number")]
+            ErrorMessage = "Enter a valid 10-digit mobile number Number Should start with 6-9")]
         public string MobileNumber { get; set; }
 
         [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string? Email { get; set; }
+        public string? Email { get; set; }=null!;
 
+        [Required(ErrorMessage = "Blood Group is Required")]
         [RegularExpression(
      "^(A|B|AB|O)[+-]$",
      ErrorMessage = "Select a valid blood group")]
-        public string? BloodGroup { get; set; }
+        public string? BloodGroup { get; set; }=null!;
 
-
-        [RegularExpression(@"^[6-9]\d{9}$",
+        [Required(ErrorMessage ="Emergency contact is Required")]
+        [RegularExpression(@"^[1-9]\d{9}$",
             ErrorMessage = "Emergency contact must be a valid 10-digit number")]
-        public string? EmergencyContact { get; set; }
+        public string? EmergencyContact { get; set; }=null!;
 
         public DateTime RegisteredOn { get; set; } = DateTime.Now;
 
